@@ -1,8 +1,8 @@
-﻿using BookStoreApi.Modelos;
+﻿using LaboratorioApi.Modelos;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace BookStoreApi.Servicios
+namespace LaboratorioApi.Servicios
 {
     public class AlumnoService
     {
@@ -25,15 +25,15 @@ namespace BookStoreApi.Servicios
             await _booksCollection.Find(_ => true).ToListAsync();
 
         public async Task<Alumno?> GetAsync(string id) =>
-            await _booksCollection.Find(x => x._id == id).FirstOrDefaultAsync();
+            await _booksCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
         public async Task CreateAsync(Alumno newBook) =>
             await _booksCollection.InsertOneAsync(newBook);
 
         public async Task UpdateAsync(string id, Alumno updatedBook) =>
-            await _booksCollection.ReplaceOneAsync(x => x._id == id, updatedBook);
+            await _booksCollection.ReplaceOneAsync(x => x.Id == id, updatedBook);
 
         public async Task RemoveAsync(string id) =>
-            await _booksCollection.DeleteOneAsync(x => x._id == id);
+            await _booksCollection.DeleteOneAsync(x => x.Id == id);
     }
 }

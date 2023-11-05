@@ -2,20 +2,17 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System.Text.Json.Serialization;
 
-namespace BookStoreApi.Modelos;
+namespace LaboratorioApi.Modelos;
 
 public class Alumno
 {
+
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
-    public string? _id { get; set; }
+    public string? Id { get; set; }
+    public string cedula { get; set; }
 
-
-    [BsonElement("cedula")]
-    [JsonPropertyName("cedula")]
-    public string cedula { get; set; } = null!;
-
-    public decimal nombre { get; set; }
+    public string nombre { get; set; }
 
     public string telefono { get; set; } = null!;
 
