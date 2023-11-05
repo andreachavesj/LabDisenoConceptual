@@ -1,5 +1,5 @@
-using BookStoreApi.Modelos;
-using BookStoreApi.Servicios;
+using LaboratorioApi.Modelos;
+using LaboratorioApi.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +9,8 @@ builder.Services.Configure<ProyectoDatabaseSettings>(
 
 
 builder.Services.AddSingleton<AlumnoService>();
+builder.Services.AddSingleton<CursoService>();
+builder.Services.AddSingleton<CarreraService>();
 // Add services to the container.
 
 builder.Services.AddControllers()

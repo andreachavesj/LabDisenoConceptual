@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.github",
+    "\\.github\\workflows",
+    "\\LaboratorioEnClase",
+    "\\LaboratorioEnClase\\BookStoreApi",
+    "\\LaboratorioEnClase\\BookStoreApi\\Controllers",
+    "\\LaboratorioEnClase\\BookStoreApi\\Modelos",
+    "\\LaboratorioEnClase\\BookStoreApi\\obj",
+    "\\LaboratorioEnClase\\BookStoreApi\\Properties",
+    "\\LaboratorioEnClase\\BookStoreApi\\Servicios"
+  ],
+  "SelectedNode": "\\LaboratorioEnClase\\BookStoreApi\\Controllers\\BooksController.cs",
+  "PreviewInSolutionExplorer": false
+}

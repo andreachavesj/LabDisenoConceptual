@@ -1,8 +1,8 @@
-﻿using BookStoreApi.Modelos;
-using BookStoreApi.Servicios;
+﻿using LaboratorioApi.Modelos;
+using LaboratorioApi.Servicios;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookStoreApi.Controllers;
+namespace LaboratorioApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
