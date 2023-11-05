@@ -18,7 +18,12 @@ namespace LaboratorioApi.Modelos
 
         public string titulo { get; set; }
 
-        public Curso[]? cursos { get; set; }
-
+        public CursoCarrera[]? cursos { get; set; } = null!;
     }
+
+    public class CursoCarrera
+    {
+        public int codigo_curso { get; set; }
+    }
+
 }
