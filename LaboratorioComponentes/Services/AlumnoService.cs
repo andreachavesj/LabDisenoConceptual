@@ -7,21 +7,17 @@ namespace LaboratorioComponentes.Services;
     public class AlumnoService
     {
         private readonly IMongoCollection<Alumno> _alumnoCollection;
+        private readonly MongoDBContext _mongoDBContext;
 
-        public AlumnoService(
-            IOptions<ProyectoDatabaseSettings> proyectoDatabaseSettings)
-        {
-            var mongoClient = new MongoClient(
-                proyectoDatabaseSettings.Value.ConnectionString);
+    public AlumnoService(
+        IOptions<ProyectoDatabaseSettings> proyectoDatabaseSettings, MongoDBContext mongoDBContext)
+    {
+        _mongoDBContext = mongoDBContext; // Asigna la instancia de MongoDBContext
+        _alumnoCollection = _mongoDBContext.Database.GetCollection<Alumno>(
+            proyectoDatabaseSettings.Value.AlumnoCollectionName);
+    }
 
-            var mongoDatabase = mongoClient.GetDatabase(
-                proyectoDatabaseSettings.Value.DatabaseName);
-
-            _alumnoCollection = mongoDatabase.GetCollection<Alumno>(
-                proyectoDatabaseSettings.Value.AlumnoCollectionName);
-        }
-
-        public async Task<List<Alumno>> GetAsync() =>
+    public async Task<List<Alumno>> GetAsync() =>
             await _alumnoCollection.Find(_ => true).ToListAsync();
 
         public async Task<Alumno?> GetAsync(string id) =>

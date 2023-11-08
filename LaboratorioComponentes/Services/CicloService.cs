@@ -7,18 +7,14 @@ namespace LaboratorioComponentes.Services;
 public class CicloService
 {
     private readonly IMongoCollection<Ciclo> _cicloCollection;
+    private readonly MongoDBContext _mongoDBContext;
 
     public CicloService(
-        IOptions<ProyectoDatabaseSettings> proyectoDatabaseSettings)
+        IOptions<ProyectoDatabaseSettings> proyectoDatabaseSettings, MongoDBContext mongoDBContext)
     {
-        var mongoClient = new MongoClient(
-            proyectoDatabaseSettings.Value.ConnectionString);
-
-        var mongoDatabase = mongoClient.GetDatabase(
-            proyectoDatabaseSettings.Value.DatabaseName);
-
-        _cicloCollection = mongoDatabase.GetCollection<Ciclo>(
-            proyectoDatabaseSettings.Value.CicloCollectionName);
+        _mongoDBContext = mongoDBContext;
+        _cicloCollection = _mongoDBContext.Database.GetCollection<Ciclo>(
+        proyectoDatabaseSettings.Value.CicloCollectionName);
     }
 
     public async Task<List<Ciclo>> GetAsync() =>

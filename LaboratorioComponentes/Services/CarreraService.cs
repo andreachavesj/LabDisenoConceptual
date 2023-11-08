@@ -7,21 +7,17 @@ namespace LaboratorioComponentes.Services;
     public class CarreraService
     {
         private readonly IMongoCollection<Carrera> _carreraCollection;
+        private readonly MongoDBContext _mongoDBContext;
 
         public CarreraService(
-            IOptions<ProyectoDatabaseSettings> proyectoDatabaseSettings)
+            IOptions<ProyectoDatabaseSettings> proyectoDatabaseSettings, MongoDBContext mongoDBContext)
         {
-            var mongoClient = new MongoClient(
-                proyectoDatabaseSettings.Value.ConnectionString);
-
-            var mongoDatabase = mongoClient.GetDatabase(
-                proyectoDatabaseSettings.Value.DatabaseName);
-
-            _carreraCollection = mongoDatabase.GetCollection<Carrera>(
-                proyectoDatabaseSettings.Value.CarreraCollectionName);
+            _mongoDBContext = mongoDBContext; 
+            _carreraCollection = _mongoDBContext.Database.GetCollection<Carrera>(
+            proyectoDatabaseSettings.Value.CarreraCollectionName);
         }
 
-        public async Task<List<Carrera>> GetAsync() =>
+    public async Task<List<Carrera>> GetAsync() =>
             await _carreraCollection.Find(_ => true).ToListAsync();
 
         public async Task<Carrera?> GetAsync(string id) =>
