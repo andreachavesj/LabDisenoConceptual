@@ -7,19 +7,15 @@ namespace LaboratorioComponentes.Services;
     public class CursoService
     {
         private readonly IMongoCollection<Curso> _cursoCollection;
+        private readonly MongoDBContext _mongoDBContext;
 
-        public CursoService(
-            IOptions<ProyectoDatabaseSettings> proyectoDatabaseSettings)
-        {
-            var mongoClient = new MongoClient(
-                proyectoDatabaseSettings.Value.ConnectionString);
-
-            var mongoDatabase = mongoClient.GetDatabase(
-                proyectoDatabaseSettings.Value.DatabaseName);
-
-            _cursoCollection = mongoDatabase.GetCollection<Curso>(
-                proyectoDatabaseSettings.Value.CursoCollectionName);
-        }
+    public CursoService(
+            IOptions<ProyectoDatabaseSettings> proyectoDatabaseSettings, MongoDBContext mongoDBContext)
+    {
+        _mongoDBContext = mongoDBContext;
+        _cursoCollection = _mongoDBContext.Database.GetCollection<Curso>(
+        proyectoDatabaseSettings.Value.CursoCollectionName);
+    }
 
         public async Task<List<Curso>> GetAsync() =>
             await _cursoCollection.Find(_ => true).ToListAsync();
