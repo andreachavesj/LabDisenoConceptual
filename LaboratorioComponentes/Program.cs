@@ -50,3 +50,16 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+//Iterator demo
+var persons = new Aggregate<Person>();
+persons[0] = new Person("Johnn", 30);
+persons[0] = new Person("Jane", 20);
+persons[0] = new Person("Michael", 10);
+
+var iterator = persons.Iterator;
+while (iterator.IsLeft())
+{
+    Console.WriteLine(iterator.Current);
+    iterator.Next();
+}
