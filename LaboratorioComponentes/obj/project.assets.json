@@ -1242,19 +1242,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Chino-096\\.nuget\\packages\\": {}
+    "C:\\Users\\Rolo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Chino-096\\source\\repos\\LabDisenoConceptual\\Lab\\LaboratorioComponentes\\LaboratorioComponentes.csproj",
+      "projectUniqueName": "C:\\Users\\Rolo\\Source\\Repos\\LabDisenoConceptual\\LaboratorioComponentes\\LaboratorioComponentes.csproj",
       "projectName": "LaboratorioComponentes",
-      "projectPath": "C:\\Users\\Chino-096\\source\\repos\\LabDisenoConceptual\\Lab\\LaboratorioComponentes\\LaboratorioComponentes.csproj",
-      "packagesPath": "C:\\Users\\Chino-096\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Chino-096\\source\\repos\\LabDisenoConceptual\\Lab\\LaboratorioComponentes\\obj\\",
+      "projectPath": "C:\\Users\\Rolo\\Source\\Repos\\LabDisenoConceptual\\LaboratorioComponentes\\LaboratorioComponentes.csproj",
+      "packagesPath": "C:\\Users\\Rolo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Rolo\\Source\\Repos\\LabDisenoConceptual\\LaboratorioComponentes\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Chino-096\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Rolo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1312,7 +1312,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
