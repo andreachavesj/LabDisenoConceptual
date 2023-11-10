@@ -1,4 +1,6 @@
-﻿using LaboratorioComponentes.Models;
+﻿using LaboratorioComponentes.Builder;
+using LaboratorioComponentes.IBuilder;
+using LaboratorioComponentes.Models;
 using LaboratorioComponentes.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,11 +33,30 @@ public class AlumnoController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(Alumno newAlumno)
+    public async Task<IActionResult> Post([FromBody] Alumno alumno)
     {
-        await _alumnoService.CreateAsync(newAlumno);
+        try
+        {
+            IBuilderAlumno alumnoBuilder = new AlumnoBuilder();
+            Director director = new Director(alumnoBuilder);
 
-        return CreatedAtAction(nameof(Get), new { id = newAlumno.Id }, newAlumno);
+            Alumno newAlumno = director.CrearAlumno(
+                alumno.cedula,
+                alumno.nombre,
+                alumno.telefono,
+                alumno.email,
+                alumno.fecha_nacimiento,
+                alumno.carrera
+            );
+
+            await _alumnoService.CreateAsync(newAlumno);
+
+            return CreatedAtAction(nameof(Get), new { id = newAlumno.Id }, newAlumno);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPut("{id:length(24)}")]
