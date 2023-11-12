@@ -1,4 +1,5 @@
-﻿using LaboratorioComponentes.Models;
+﻿using LaboratorioComponentes.IObserver;
+using LaboratorioComponentes.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -8,13 +9,41 @@ public class CicloService
 {
     private readonly IMongoCollection<Ciclo> _cicloCollection;
     private readonly MongoDBContext _mongoDBContext;
+    private readonly List<ICicloObserver> _cicloObservers = new List<ICicloObserver>();
 
     public CicloService(
-        IOptions<ProyectoDatabaseSettings> proyectoDatabaseSettings, MongoDBContext mongoDBContext)
+        IOptions<ProyectoDatabaseSettings> proyectoDatabaseSettings,
+        MongoDBContext mongoDBContext)
     {
         _mongoDBContext = mongoDBContext;
         _cicloCollection = _mongoDBContext.Database.GetCollection<Ciclo>(
-        proyectoDatabaseSettings.Value.CicloCollectionName);
+            proyectoDatabaseSettings.Value.CicloCollectionName);
+    }
+
+    public async Task CrearNuevoCicloAsync(Ciclo newCiclo)
+    {
+        await _cicloCollection.InsertOneAsync(newCiclo);
+
+        // Notificar a los observadores que se ha creado un nuevo ciclo
+        NotificarCicloObservers(newCiclo);
+    }
+
+    public void AgregarCicloObserver(ICicloObserver observer)
+    {
+        _cicloObservers.Add(observer);
+    }
+
+    public void EliminarCicloObserver(ICicloObserver observer)
+    {
+        _cicloObservers.Remove(observer);
+    }
+
+    private void NotificarCicloObservers(Ciclo ciclo)
+    {
+        foreach (var observer in _cicloObservers)
+        {
+            observer.NotificarNuevoCiclo(ciclo);
+        }
     }
 
     public async Task<List<Ciclo>> GetAsync() =>
