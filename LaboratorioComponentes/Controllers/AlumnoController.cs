@@ -1,5 +1,6 @@
 ﻿using LaboratorioComponentes.Builder;
 using LaboratorioComponentes.IBuilder;
+using LaboratorioComponentes.IObserver;
 using LaboratorioComponentes.Models;
 using LaboratorioComponentes.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +9,23 @@ namespace LaboratorioComponentes.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AlumnoController : ControllerBase
+public class AlumnoController : ControllerBase, ICicloObserver
 {
     private readonly AlumnoService _alumnoService;
 
-    public AlumnoController(AlumnoService alumnoService) =>
+    public AlumnoController(AlumnoService alumnoService, CicloService cicloService)
+    {
         _alumnoService = alumnoService;
+        cicloService.AgregarCicloObserver(this);
+    }
+
+    [ApiExplorerSettings(IgnoreApi = true)] // Ignorar este método en Swagger
+    public void NotificarNuevoCiclo(Ciclo ciclo)
+    {
+        // Lógica específica para notificar a los alumnos sobre el nuevo ciclo
+        // Puedes acceder a la lógica de notificación de alumnos desde _alumnoService.
+        _alumnoService.NotificarNuevoCiclo(ciclo);
+    }
 
     [HttpGet]
     public async Task<List<Alumno>> Get() =>
