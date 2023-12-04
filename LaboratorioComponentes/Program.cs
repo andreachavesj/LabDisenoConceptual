@@ -36,7 +36,26 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
 });
 
+builder.Services.AddRazorPages();
+
 var app = builder.Build();
+
+// Configure the app to serve static files from WebUI directory
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+        Path.Combine(app.Environment.ContentRootPath, "WebUI")),
+    RequestPath = new PathString("")
+});
+
+// Set default document
+app.UseDefaultFiles(new DefaultFilesOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
+        Path.Combine(app.Environment.ContentRootPath, "WebUI")),
+    DefaultFileNames = new List<string> { "index.html" }
+});
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -48,6 +67,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapRazorPages();
 
 app.Run();
 
