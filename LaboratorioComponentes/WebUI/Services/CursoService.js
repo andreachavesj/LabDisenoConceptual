@@ -97,8 +97,8 @@ async function updateTable() {
         const row = `
         <tr>
             <th scope="row">${index + 1}</th>
-            <td>${curso.nombre}</td>
-            <td>${curso.creditos}</td>
+            <td>${curso.Nombre}</td>
+            <td>${curso.Creditos}</td>
             <td>${curso.HorasSemanales}</td>
             <td>${curso.codigo_carrera}</td>
         </tr>
